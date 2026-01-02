@@ -4,7 +4,7 @@ import { Link, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Users from './pages/users/Users';
 
 // Inicialize o Mercado Pago com seu Public Key
-const publicKey = 'APP_USR-1364aaa6-93ef-4539-a0b8-a83881863c95';
+const publicKey = '';
 initMercadoPago(publicKey);
 
 function App() {
