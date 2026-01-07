@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Dialog } from '../shared/Dialog';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,7 +5,6 @@ import { userSchema, UserFormData } from 'src/validators/users/userSchema';
 import { User, UserActions } from 'src/models/User';
 
 interface UserDialogProps {
-  title: string;
   action: UserActions;
   userData?: Partial<User> | null;
   onConfirm?: (data: Partial<User>) => void;
@@ -14,7 +12,6 @@ interface UserDialogProps {
 }
 
 function UserDialog({
-  title,
   userData,
   action = 'CREATE',
   onClose,
@@ -70,7 +67,7 @@ function UserDialog({
           <label className="block text-sm font-medium mb-1">Nome</label>
           <input
             disabled={action === 'GET'}
-            value={userData?.name}
+            defaultValue={userData?.name}
             type="text"
             {...register('name')}
             className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2
@@ -90,7 +87,7 @@ function UserDialog({
           <label className="block text-sm font-medium mb-1">Email</label>
           <input
             disabled={action === 'GET'}
-            value={userData?.email}
+            defaultValue={userData?.email}
             type="email"
             {...register('email')}
             className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2

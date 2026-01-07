@@ -8,6 +8,7 @@ import {
   useGetUsers,
 } from 'src/hooks/users/UseUsers';
 import UserDialog from 'src/components/users/UserDialog';
+import { Dialog } from 'src/components/shared/Dialog';
 
 function Users() {
   const {
@@ -20,6 +21,7 @@ function Users() {
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [userData, setUserData] = useState<Partial<User> | null>(null);
   const [userCurrentAction, setUserAction] = useState<UserActions>(null);
 
@@ -41,11 +43,15 @@ function Users() {
     setDialogOpen(true);
   }
 
+  function deleteUserConfirmation() {
+    deleteUser.mutate(userData?.id!);
+    refetchUsers();
+  }
+
   function deleteUserAction(user: User) {
     setUserAction('DELETE');
+    setConfirmDialogOpen(true);
     setUserData(user);
-    deleteUser.mutate(user.id);
-    refetchUsers();
   }
 
   if (isLoading) return <p>Carregando...</p>;
@@ -53,27 +59,31 @@ function Users() {
 
   return (
     <div className="p-6 min-w-full">
-      <h1>Usuários</h1>
+      <h1>Lista de usuários</h1>
       <UserTable
         users={users || []}
         onInfo={(u) => openUserDialog('GET', u)}
         onEdit={(u) => openUserDialog('UPDATE', u)}
         onDelete={(u) => deleteUserAction(u)}
+        onCreate={() => openUserDialog('CREATE')}
       />
-      <button
-        className='px-3 py-1 text-xs font-medium rounded bg-green-100 text-green-700 hover:bg-green-200"'
-        onClick={() => openUserDialog('CREATE')}
-      >
-        Criar usuário
-      </button>
       {isDialogOpen && (
         <UserDialog
-          title="Teste"
           action={userCurrentAction}
           userData={userData}
           onConfirm={(data) => onConfirmUserData(data)}
           onClose={() => setDialogOpen(false)}
         ></UserDialog>
+      )}
+      {isConfirmDialogOpen && (
+        <Dialog
+          title="Exclusão de usuário"
+          onClose={() => setConfirmDialogOpen(false)}
+          actionButtons={true}
+          onConfirm={deleteUserConfirmation}
+        >
+          <span>Deseja confirmar a exclusão do usuário {userData?.name}?</span>
+        </Dialog>
       )}
     </div>
   );

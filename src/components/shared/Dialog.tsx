@@ -4,7 +4,6 @@ interface DialogProps<T = unknown> {
   title?: string;
   children: ReactNode;
   actionButtons?: boolean;
-  data?: T;
 
   onClose: () => void;
   onConfirm?: (confirmed: true, data?: T) => void;
@@ -14,12 +13,11 @@ export function Dialog<T>({
   title,
   children,
   actionButtons = false,
-  data,
   onClose,
   onConfirm,
 }: DialogProps<T>) {
   function handleConfirm() {
-    onConfirm?.(true, data);
+    onConfirm?.(true);
     onClose();
   }
 
@@ -48,6 +46,25 @@ export function Dialog<T>({
 
         {/* Content */}
         <div className="p-4">{children}</div>
+
+        {/* Actions */}
+        {actionButtons && (
+          <div className="flex justify-end gap-2 px-4 py-3 border-t">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-md border text-gray-700 hover:bg-gray-100"
+            >
+              Cancelar
+            </button>
+
+            <button
+              onClick={handleConfirm}
+              className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+            >
+              Confirmar exclusão
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
