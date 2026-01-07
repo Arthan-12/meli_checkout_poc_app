@@ -4,7 +4,7 @@ import { userKeys } from 'src/services/users/UserQueries';
 import { userService } from 'src/services/users/UserService';
 
 /* GET ALL USERS */
-export function useUsers() {
+export function useGetUsers() {
   return useQuery({
     queryKey: userKeys.list(),
     queryFn: () => userService.getAllUsers(),
@@ -12,7 +12,7 @@ export function useUsers() {
 }
 
 /* GET USER BY ID */
-export function useUser(id: number) {
+export function useGetUser(id: number) {
   return useQuery({
     queryKey: userKeys.detail(id),
     queryFn: () => userService.getUserById(id),
@@ -39,7 +39,7 @@ export function useUpdateUser() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (user: User) => userService.updateUser(user),
+    mutationFn: (user: Partial<User>) => userService.updateUser(user),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: userKeys.list(),
