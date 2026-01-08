@@ -3,3 +3,5 @@ export interface User {
   name: string;
   email: string;
 }
+
+export type UserActions = 'CREATE' | 'UPDATE' | 'GET' | 'DELETE' | null;

@@ -19,7 +19,7 @@ export class UserService {
     return response.data;
   }
 
-  async updateUser(user: User): Promise<User> {
+  async updateUser(user: Partial<User>): Promise<User> {
     const response = await axios.put<User>(`${url}/${user.id}`, user);
     return response.data;
   }
