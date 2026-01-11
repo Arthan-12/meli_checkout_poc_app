@@ -1,7 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { User } from 'src/models/User';
-import { userKeys } from 'src/services/users/UserQueries';
-import { userService } from 'src/services/users/UserService';
+import { User } from '@/models/User';
+import { userKeys } from '@/services/users/UserQueries';
+import { userService } from '@/services/users/UserService';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
 /* GET ALL USERS */
 export function useGetUsers() {

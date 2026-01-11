@@ -1,14 +1,14 @@
-import { User, UserActions } from 'src/models/User';
-import UserTable from './../../components/users/UserTable';
-import { useState } from 'react';
+import { Dialog } from '@/components/shared/Dialog';
+import UserDialog from '@/components/users/UserDialog';
+import UserTable from '@/components/users/UserTable';
 import {
-  useCreateUser,
-  useDeleteUser,
-  useUpdateUser,
   useGetUsers,
-} from 'src/hooks/users/UseUsers';
-import UserDialog from 'src/components/users/UserDialog';
-import { Dialog } from 'src/components/shared/Dialog';
+  useDeleteUser,
+  useCreateUser,
+  useUpdateUser,
+} from '@/hooks/users/UseUsers';
+import { User, UserActions } from '@/models/User';
+import { useState } from 'react';
 
 function Users() {
   const {
@@ -60,13 +60,15 @@ function Users() {
   return (
     <div className="p-6 min-w-full">
       <h1>Lista de usuários</h1>
-      <UserTable
-        users={users || []}
-        onInfo={(u) => openUserDialog('GET', u)}
-        onEdit={(u) => openUserDialog('UPDATE', u)}
-        onDelete={(u) => deleteUserAction(u)}
-        onCreate={() => openUserDialog('CREATE')}
-      />
+      {users && (
+        <UserTable
+          users={users}
+          onInfo={(u) => openUserDialog('GET', u)}
+          onEdit={(u) => openUserDialog('UPDATE', u)}
+          onDelete={(u) => deleteUserAction(u)}
+          onCreate={() => openUserDialog('CREATE')}
+        />
+      )}
       {isDialogOpen && (
         <UserDialog
           action={userCurrentAction}

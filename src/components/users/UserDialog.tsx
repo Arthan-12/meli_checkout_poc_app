@@ -1,8 +1,8 @@
-import { Dialog } from '../shared/Dialog';
-import { useForm } from 'react-hook-form';
+import { UserActions, User } from '@/models/User';
+import { UserFormData, userSchema } from '@/validators/users/userSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { userSchema, UserFormData } from 'src/validators/users/userSchema';
-import { User, UserActions } from 'src/models/User';
+import { useForm } from 'react-hook-form';
+import { Dialog } from '../shared/Dialog';
 
 interface UserDialogProps {
   action: UserActions;

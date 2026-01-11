@@ -19,9 +19,10 @@
 
     "baseUrl": ".",
     "paths": {
-      "baseUrl": ["src"]
+      "baseUrl": ["src"],
+      "@/*": ["./src/*"]
     },
-
+    "types": ["vite/client"],
     "incremental": true
   },
   "include": ["src"],
