@@ -3,6 +3,7 @@ import './App.css';
 import { Link, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Users from './pages/users/Users';
 import Login from './pages/login/Login';
+import Products from './pages/products';
 
 // Inicialize o Mercado Pago com seu Public Key
 const publicKey = '';
@@ -21,13 +22,14 @@ function App() {
       >
         <nav>
           <Link to="/">Home</Link> | <Link to="/users">Users</Link> |{' '}
-          <Link to="/login">Login</Link>
+          <Link to="/login">Login</Link> | <Link to="/products">Products</Link>
         </nav>
 
         {/* Routes */}
         <Routes>
           <Route path="/users" element={<Users />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/products" element={<Products />} />
         </Routes>
         {/* <h1>Botão de Pagamento</h1>
         <p>Clique no botão para realizar o pagamento.</p> */}
