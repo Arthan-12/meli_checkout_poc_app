@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: process.env.API_GATEWAY_URL,
+  baseURL: 'http://localhost:8080',
   withCredentials: true, // important if using cookies/JWT
 });
