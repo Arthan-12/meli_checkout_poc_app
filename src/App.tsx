@@ -35,7 +35,7 @@ function App() {
         {/* <div style={{ width: '300px' }}>
           <Wallet
             initialization={{
-              preferenceId: '3073667076-d344a04e-4247-41e9-aa50-39bf5c3e0bd6',
+              preferenceId: '3073667076-b26f1065-1492-4881-9fd9-3d019de73416',
             }}
           />
         </div> */}
