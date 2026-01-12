@@ -4,6 +4,9 @@ import { Link, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Users from './pages/users/Users';
 import Login from './pages/login/Login';
 import Products from './pages/products';
+import Orders from './pages/orders';
+import Home from './pages/home';
+import { OrdersProvider } from './contexts/orders';
 
 // Inicialize o Mercado Pago com seu Public Key
 const publicKey = '';
@@ -22,22 +25,27 @@ function App() {
       >
         <nav>
           <Link to="/">Home</Link> | <Link to="/users">Users</Link> |{' '}
-          <Link to="/login">Login</Link> | <Link to="/products">Products</Link>
+          <Link to="/login">Login</Link> | <Link to="/products">Products</Link>{' '}
+          | <Link to={'/orders'}>Orders</Link>
         </nav>
 
         {/* Routes */}
-        <Routes>
-          <Route path="/users" element={<Users />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/products" element={<Products />} />
-        </Routes>
+        <OrdersProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/orders" element={<Orders />} />
+          </Routes>
+        </OrdersProvider>
         {/* <h1>Botão de Pagamento</h1>
         <p>Clique no botão para realizar o pagamento.</p> */}
         {/* Renderize o botão de pagamento */}
         {/* <div style={{ width: '300px' }}>
           <Wallet
             initialization={{
-              preferenceId: '3073667076-b26f1065-1492-4881-9fd9-3d019de73416',
+              preferenceId: '',
             }}
           />
         </div> */}

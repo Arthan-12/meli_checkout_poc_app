@@ -1,5 +1,8 @@
 import ProductTable from '@/components/products/ProductTable';
+import { useOrders } from '@/contexts/orders';
+import { useCreateOrder } from '@/hooks/orders/UseOrders';
 import { useGetProducts } from '@/hooks/products/UseProducts';
+import { Order, OrderItem } from '@/models/Order';
 import { Product } from '@/models/Products';
 import { useState } from 'react';
 
@@ -10,11 +13,30 @@ function Products() {
     error: productsError,
     refetch: refetchProducts,
   } = useGetProducts();
+  const { orders, loadOrders } = useOrders();
+  const createOrder = useCreateOrder();
   const [productData, setProductData] = useState<Partial<Product> | null>(null);
 
   function addToCartAction(product: Product) {
     console.log(product);
     setProductData(product);
+    if (orders.length > 0) {
+      console.log('alterar pedido');
+    } else {
+      console.log('criar pedido');
+      createOrderAction(product);
+    }
+  }
+
+  function createOrderAction(product: Product) {
+    const orderItem: OrderItem = {
+      name: product.name,
+      productId: product.id,
+      quantity: 1,
+      unitPrice: product.price,
+    };
+    const orderList: OrderItem[] = [orderItem];
+    createOrder.mutate(orderList);
   }
 
   if (isProductsLoading) return <p>Carregando...</p>;

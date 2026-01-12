@@ -14,13 +14,13 @@ export class ProductService {
     return response.data;
   }
 
-  async createProduct(Product: Partial<Product>): Promise<Product> {
-    const response = await api.post<Product>(url, Product);
+  async createProduct(product: Partial<Product>): Promise<Product> {
+    const response = await api.post<Product>(url, product);
     return response.data;
   }
 
-  async updateProduct(Product: Partial<Product>): Promise<Product> {
-    const response = await api.put<Product>(`${url}/${Product.id}`, Product);
+  async updateProduct(product: Partial<Product>): Promise<Product> {
+    const response = await api.put<Product>(`${url}/${product.id}`, product);
     return response.data;
   }
 
