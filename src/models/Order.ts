@@ -8,7 +8,7 @@ export interface OrderItem {
 export type OrderStatus = 'CREATED' | 'PENDING_PAYMENT' | 'PAID' | 'CANCELLED';
 
 export interface Order {
-  id: string;
+  orderId: string;
   items: OrderItem[];
   totalAmount: number;
   orderStatus: OrderStatus;

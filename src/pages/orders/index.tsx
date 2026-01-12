@@ -1,13 +1,19 @@
 import OrdersTable from '@/components/orders/OrdersTable';
 import { useOrders } from '@/contexts/orders';
+import { useCreateCheckout } from '@/hooks/checkout/UseCheckout';
 import { useDeleteOrder } from '@/hooks/orders/UseOrders';
+import { Order } from '@/models/Order';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 function Orders() {
   const { orders, loading: isOrdersLoading, error: ordersError } = useOrders();
   const deleteOrder = useDeleteOrder();
-  function proceedToCheckout(orderId: string) {}
+  const createCheckout = useCreateCheckout();
+
+  function proceedToCheckout(order: Order) {
+    createCheckout.mutate(order);
+  }
 
   function cancelOrder(orderId: string) {
     deleteOrder.mutate(orderId);
@@ -22,7 +28,7 @@ function Orders() {
       {orders.length > 0 && (
         <OrdersTable
           orders={orders}
-          proceedToCheckout={(id) => proceedToCheckout(id)}
+          proceedToCheckout={(order) => proceedToCheckout(order)}
           cancelOrder={(id) => cancelOrder(id)}
         />
       )}
