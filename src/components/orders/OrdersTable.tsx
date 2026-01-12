@@ -3,7 +3,7 @@ import { CheckCircle, Trash } from 'lucide-react';
 
 interface OrdersTableProps {
   orders: Order[];
-  proceedToCheckout: (id: string) => void;
+  proceedToCheckout: (order: Order) => void;
   cancelOrder: (id: string) => void;
 }
 
@@ -36,7 +36,7 @@ function OrdersTable({
         <tbody className="divide-y divide-gray-200">
           {orders.map((order) => (
             <tr
-              key={order.id}
+              key={order.orderId}
               className="block md:table-row p-4 md:p-0 hover:bg-gray-50"
             >
               {/* Pedido */}
@@ -44,7 +44,7 @@ function OrdersTable({
                 <span className="md:hidden text-xs font-semibold text-gray-500">
                   Pedido
                 </span>
-                <div className="text-sm text-gray-900">{order.id}</div>
+                <div className="text-sm text-gray-900">{order.orderId}</div>
               </td>
 
               {/* Status */}
@@ -79,14 +79,14 @@ function OrdersTable({
                   <button
                     title="Adicionar ao carrinho"
                     className="px-3 py-1 text-xs cursor-pointer font-medium rounded bg-green-100 text-green-700 hover:bg-green-200"
-                    onClick={() => proceedToCheckout(order.id)}
+                    onClick={() => proceedToCheckout(order)}
                   >
                     <CheckCircle className="w-5 h-5 text-green-500" />
                   </button>
                   <button
                     title="Adicionar ao carrinho"
                     className="px-3 py-1 text-xs cursor-pointer font-medium rounded bg-red-100 text-red-700 hover:bg-red-200"
-                    onClick={() => cancelOrder(order.id)}
+                    onClick={() => cancelOrder(order.orderId)}
                   >
                     <Trash className="w-5 h-5 text-red-500" />
                   </button>

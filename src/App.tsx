@@ -1,4 +1,3 @@
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import './App.css';
 import { Link, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Users from './pages/users/Users';
@@ -7,10 +6,7 @@ import Products from './pages/products';
 import Orders from './pages/orders';
 import Home from './pages/home';
 import { OrdersProvider } from './contexts/orders';
-
-// Inicialize o Mercado Pago com seu Public Key
-const publicKey = '';
-initMercadoPago(publicKey);
+import { PreferenceProvider } from './contexts/preference';
 
 function App() {
   return (
@@ -31,24 +27,16 @@ function App() {
 
         {/* Routes */}
         <OrdersProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/orders" element={<Orders />} />
-          </Routes>
+          <PreferenceProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
+            </Routes>
+          </PreferenceProvider>
         </OrdersProvider>
-        {/* <h1>Botão de Pagamento</h1>
-        <p>Clique no botão para realizar o pagamento.</p> */}
-        {/* Renderize o botão de pagamento */}
-        {/* <div style={{ width: '300px' }}>
-          <Wallet
-            initialization={{
-              preferenceId: '',
-            }}
-          />
-        </div> */}
       </div>
     </BrowserRouter>
   );
