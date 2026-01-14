@@ -1,17 +1,30 @@
 import { Order } from '@/models/Order';
-import { CheckCircle, Trash } from 'lucide-react';
+import { CheckCircle, ChevronDown, ChevronUp, Trash } from 'lucide-react';
+import { useState } from 'react';
 
 interface OrdersTableProps {
   orders: Order[];
   proceedToCheckout: (order: Order) => void;
   cancelOrder: (id: string) => void;
+  showOrderDetails: (showDetails: boolean) => void;
 }
 
 function OrdersTable({
   orders,
   proceedToCheckout,
   cancelOrder,
+  showOrderDetails,
 }: OrdersTableProps) {
+  const [showDetails, setShowDetails] = useState(false);
+
+  function toggleDetailsAction() {
+    setShowDetails((prev) => {
+      const next = !prev;
+      showOrderDetails(next);
+      return next;
+    });
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border border-gray-200 rounded-lg">
@@ -76,6 +89,12 @@ function OrdersTable({
               {/* Actions */}
               <td className="block md:table-cell px-4 py-3">
                 <div className="flex gap-2 md:justify-end">
+                  <button
+                    className="px-3 py-1 text-xs cursor-pointer font-medium rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
+                    onClick={toggleDetailsAction}
+                  >
+                    {showDetails ? <ChevronUp /> : <ChevronDown />}
+                  </button>
                   <button
                     title="Adicionar ao carrinho"
                     className="px-3 py-1 text-xs cursor-pointer font-medium rounded bg-green-100 text-green-700 hover:bg-green-200"

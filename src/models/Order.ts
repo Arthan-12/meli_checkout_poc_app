@@ -15,3 +15,8 @@ export interface Order {
   paymentPreferenceId: string;
   createdAt: string;
 }
+
+export interface UpdateOrderRequest {
+  orderId: string;
+  items: OrderItem[];
+}

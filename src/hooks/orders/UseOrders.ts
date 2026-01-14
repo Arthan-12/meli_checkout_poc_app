@@ -1,5 +1,5 @@
 import { useOrders } from '@/contexts/orders';
-import { OrderItem } from '@/models/Order';
+import { Order, OrderItem, UpdateOrderRequest } from '@/models/Order';
 import { orderKeys } from '@/services/orders/OrderQueries';
 import { orderService } from '@/services/orders/OrderService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -25,6 +25,18 @@ export function useCreateOrder() {
 
   return useMutation({
     mutationFn: (order: OrderItem[]) => orderService.createOrder(order),
+    onSuccess: () => {
+      loadOrders();
+    },
+  });
+}
+
+export function useUpdateOrder() {
+  const { loadOrders } = useOrders();
+
+  return useMutation({
+    mutationFn: (updateOrderReq: UpdateOrderRequest) =>
+      orderService.updateOrder(updateOrderReq),
     onSuccess: () => {
       loadOrders();
     },

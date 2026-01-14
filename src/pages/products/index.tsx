@@ -1,8 +1,8 @@
 import ProductTable from '@/components/products/ProductTable';
 import { useOrders } from '@/contexts/orders';
-import { useCreateOrder } from '@/hooks/orders/UseOrders';
+import { useCreateOrder, useUpdateOrder } from '@/hooks/orders/UseOrders';
 import { useGetProducts } from '@/hooks/products/UseProducts';
-import { Order, OrderItem } from '@/models/Order';
+import { Order, OrderItem, UpdateOrderRequest } from '@/models/Order';
 import { Product } from '@/models/Products';
 import { useState } from 'react';
 
@@ -15,26 +15,32 @@ function Products() {
   } = useGetProducts();
   const { orders, loadOrders } = useOrders();
   const createOrder = useCreateOrder();
+  const updateOrder = useUpdateOrder();
   const [productData, setProductData] = useState<Partial<Product> | null>(null);
 
   function addToCartAction(product: Product) {
     console.log(product);
     setProductData(product);
-    if (orders.length > 0) {
-      console.log('alterar pedido');
-    } else {
-      console.log('criar pedido');
-      createOrderAction(product);
-    }
-  }
-
-  function createOrderAction(product: Product) {
     const orderItem: OrderItem = {
       name: product.name,
       productId: product.id,
       quantity: 1,
       unitPrice: product.price,
     };
+    if (orders.length > 0) {
+      console.log('alterar pedido');
+      const updateOrderReq: UpdateOrderRequest = {
+        orderId: orders[0].orderId,
+        items: [...orders[0].items, orderItem],
+      };
+      updateOrder.mutate(updateOrderReq);
+    } else {
+      console.log('criar pedido');
+      createOrderAction(orderItem);
+    }
+  }
+
+  function createOrderAction(orderItem: OrderItem) {
     const orderList: OrderItem[] = [orderItem];
     createOrder.mutate(orderList);
   }

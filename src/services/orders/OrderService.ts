@@ -1,4 +1,4 @@
-import { Order, OrderItem } from '@/models/Order';
+import { Order, OrderItem, UpdateOrderRequest } from '@/models/Order';
 import { api } from '../axios';
 import { Checkout } from '@/models/Checkout';
 
@@ -20,8 +20,11 @@ export class OrderService {
     return response.data;
   }
 
-  async updateOrder(order: Order): Promise<Order> {
-    const response = await api.put<Order>(`${url}/${order.orderId}`, order);
+  async updateOrder(updateOrderRequest: UpdateOrderRequest): Promise<Order> {
+    const response = await api.put<Order>(
+      `${url}/${updateOrderRequest.orderId}`,
+      updateOrderRequest.items
+    );
     return response.data;
   }
 
