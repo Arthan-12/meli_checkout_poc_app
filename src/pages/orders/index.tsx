@@ -8,7 +8,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 function Orders() {
-  const { orders, loading: isOrdersLoading, error: ordersError } = useOrders();
+  const {
+    orders,
+    loading: isOrdersLoading,
+    error: ordersError,
+    loadOrders,
+  } = useOrders();
   const [isOrderDetailsOpen, setOpenOrderDetails] = useState<boolean>(false);
   const deleteOrder = useDeleteOrder();
   const createCheckout = useCreateCheckout();
@@ -28,6 +33,10 @@ function Orders() {
   function updateOrderItems(items: OrderItem[]) {
     console.log(items);
   }
+
+  useEffect(() => {
+    loadOrders();
+  }, []);
 
   if (isOrdersLoading) return <p>Carregando...</p>;
   if (ordersError) return <p>Ocorreu um erro ao carregar pedidos</p>;

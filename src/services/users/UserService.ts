@@ -9,7 +9,7 @@ export class UserService {
     return response.data;
   }
 
-  async getUserById(id: number): Promise<User> {
+  async getUserById(id: string): Promise<User> {
     const response = await api.get<User>(`${url}/${id}`);
     return response.data;
   }
@@ -24,7 +24,7 @@ export class UserService {
     return response.data;
   }
 
-  async deleteUser(id: number): Promise<void> {
+  async deleteUser(id: string): Promise<void> {
     await api.delete(`${url}/${id}`);
   }
 }

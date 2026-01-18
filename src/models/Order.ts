@@ -1,6 +1,6 @@
 export interface OrderItem {
   productId: number;
-  name: string;
+  productName: string;
   quantity: number;
   unitPrice: number;
 }
@@ -8,10 +8,10 @@ export interface OrderItem {
 export type OrderStatus = 'CREATED' | 'PENDING_PAYMENT' | 'PAID' | 'CANCELLED';
 
 export interface Order {
-  orderId: string;
+  id: string;
   items: OrderItem[];
   totalAmount: number;
-  orderStatus: OrderStatus;
+  status: OrderStatus;
   paymentPreferenceId: string;
   createdAt: string;
 }

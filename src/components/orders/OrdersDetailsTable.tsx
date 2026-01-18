@@ -64,7 +64,7 @@ function OrdersDetailTable({ items, updatedItems }: OrdersDetailTableProps) {
                 <span className="md:hidden text-xs font-semibold text-gray-500">
                   Item
                 </span>
-                <div className="text-sm text-gray-900">{item.name}</div>
+                <div className="text-sm text-gray-900">{item.productName}</div>
               </td>
 
               {/* Preço Unitário*/}

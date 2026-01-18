@@ -22,7 +22,7 @@ function Products() {
     console.log(product);
     setProductData(product);
     const orderItem: OrderItem = {
-      name: product.name,
+      productName: product.name,
       productId: product.id,
       quantity: 1,
       unitPrice: product.price,
@@ -30,7 +30,7 @@ function Products() {
     if (orders.length > 0) {
       console.log('alterar pedido');
       const updateOrderReq: UpdateOrderRequest = {
-        orderId: orders[0].orderId,
+        orderId: orders[0].id,
         items: [...orders[0].items, orderItem],
       };
       updateOrder.mutate(updateOrderReq);
