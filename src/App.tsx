@@ -7,6 +7,7 @@ import Orders from './pages/orders';
 import Home from './pages/home';
 import { OrdersProvider } from './contexts/orders';
 import { PreferenceProvider } from './contexts/preference';
+import Signup from './pages/signup';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/users" element={<Users />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/products" element={<Products />} />
               <Route path="/orders" element={<Orders />} />
             </Routes>

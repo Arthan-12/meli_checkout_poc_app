@@ -12,7 +12,7 @@ export function useGetUsers() {
 }
 
 /* GET USER BY ID */
-export function useGetUser(id: number) {
+export function useGetUser(id: string) {
   return useQuery({
     queryKey: userKeys.detail(id),
     queryFn: () => userService.getUserById(id),
@@ -53,7 +53,7 @@ export function useDeleteUser() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => userService.deleteUser(id),
+    mutationFn: (id: string) => userService.deleteUser(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: userKeys.list(),

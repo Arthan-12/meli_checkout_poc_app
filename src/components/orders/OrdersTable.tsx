@@ -16,6 +16,7 @@ function OrdersTable({
   showOrderDetails,
 }: OrdersTableProps) {
   const [showDetails, setShowDetails] = useState(false);
+  const date = '14/01/2026';
 
   function toggleDetailsAction() {
     setShowDetails((prev) => {
@@ -49,7 +50,7 @@ function OrdersTable({
         <tbody className="divide-y divide-gray-200">
           {orders.map((order) => (
             <tr
-              key={order.orderId}
+              key={order.id}
               className="block md:table-row p-4 md:p-0 hover:bg-gray-50"
             >
               {/* Pedido */}
@@ -57,7 +58,7 @@ function OrdersTable({
                 <span className="md:hidden text-xs font-semibold text-gray-500">
                   Pedido
                 </span>
-                <div className="text-sm text-gray-900">{order.orderId}</div>
+                <div className="text-sm text-gray-900">{order.id}</div>
               </td>
 
               {/* Status */}
@@ -65,7 +66,7 @@ function OrdersTable({
                 <span className="md:hidden text-xs font-semibold text-gray-500">
                   Status
                 </span>
-                <div className="text-sm text-gray-900">{order.orderStatus}</div>
+                <div className="text-sm text-gray-900">{order.status}</div>
               </td>
 
               {/* Data do pedido */}
@@ -73,7 +74,7 @@ function OrdersTable({
                 <span className="md:hidden text-xs font-semibold text-gray-500">
                   Data do pedido
                 </span>
-                <div className="text-sm text-gray-900">{order.createdAt}</div>
+                <div className="text-sm text-gray-900">{date}</div>
               </td>
 
               {/* Valor do pedido */}
@@ -96,7 +97,7 @@ function OrdersTable({
                     {showDetails ? <ChevronUp /> : <ChevronDown />}
                   </button>
                   <button
-                    title="Adicionar ao carrinho"
+                    title="Realizar checkout"
                     className="px-3 py-1 text-xs cursor-pointer font-medium rounded bg-green-100 text-green-700 hover:bg-green-200"
                     onClick={() => proceedToCheckout(order)}
                   >
@@ -105,7 +106,7 @@ function OrdersTable({
                   <button
                     title="Adicionar ao carrinho"
                     className="px-3 py-1 text-xs cursor-pointer font-medium rounded bg-red-100 text-red-700 hover:bg-red-200"
-                    onClick={() => cancelOrder(order.orderId)}
+                    onClick={() => cancelOrder(order.id)}
                   >
                     <Trash className="w-5 h-5 text-red-500" />
                   </button>
