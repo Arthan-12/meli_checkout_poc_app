@@ -3,6 +3,7 @@ import { LoginRequest } from '@/models/requests/LoginRequest';
 import { labelClass, inputClass, errorClass, buttonClass } from '@/styles/form';
 import { loginSchema } from '@/validators/login/loginSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,13 @@ type LoginFormData = LoginRequest;
 
 function Login() {
   const navigate = useNavigate();
-  const login = useLogin();
+  const {
+    data: loginData,
+    mutate: loginAction,
+    isError: isLoginError,
+    isPending: isLoginLoading,
+    isSuccess: isLoginSuccess,
+  } = useLogin();
   const {
     register,
     handleSubmit,
@@ -21,7 +28,19 @@ function Login() {
 
   function onSubmit(data: LoginRequest) {
     console.log('Logado');
-    login.mutate(data);
+    loginAction(data);
+  }
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      localStorage.setItem('authToken', loginData.token);
+      navigate('/home');
+    }
+  }, [isLoginSuccess]);
+
+  if (isLoginError) return <div>Ocorreu um erro ao cadastrar o usuário</div>;
+  if (isLoginLoading) return <div>Criando novo usuário...</div>;
+  if (isLoginSuccess) {
     navigate('/home');
   }
 

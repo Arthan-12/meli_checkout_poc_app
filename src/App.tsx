@@ -1,10 +1,12 @@
 import './App.css';
 import { Link, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Users from './pages/users/Users';
-import Login from './pages/login/Login';
+import Login from './pages/login';
 import Products from './pages/products';
 import Orders from './pages/orders';
 import Home from './pages/home';
+import NotAllowed from './pages/notAllowed';
+import RequireAuth from './guards/RequireAuth';
 import { OrdersProvider } from './contexts/orders';
 import { PreferenceProvider } from './contexts/preference';
 import Signup from './pages/signup';
@@ -30,12 +32,16 @@ function App() {
         <OrdersProvider>
           <PreferenceProvider>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/users" element={<Users />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/not-allowed" element={<NotAllowed />} />
+
+              <Route element={<RequireAuth />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/orders" element={<Orders />} />
+              </Route>
             </Routes>
           </PreferenceProvider>
         </OrdersProvider>

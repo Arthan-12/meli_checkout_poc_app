@@ -11,6 +11,7 @@ type SignupFormData = SignUpRequest;
 
 function Signup() {
   const {
+    data: signUpData,
     mutate: signUpAction,
     isError: isSignUpError,
     isPending: isSignUpLoading,
@@ -25,19 +26,17 @@ function Signup() {
     resolver: yupResolver(signupSchema),
   });
 
-  //   async function onSubmit(data: SignupFormData) {
-  //     try {
-  //       await authApi.signUp(data);
-  //       alert("Account created successfully!");
-  //     } catch {
-  //       alert("Error creating account");
-  //     }
-  //   }
-
   function onSubmit(data: SignUpRequest) {
     console.log('Usuário criado');
     signUpAction(data);
   }
+
+  useEffect(() => {
+    if (isSignUpSuccess) {
+      localStorage.setItem('authToken', signUpData.token);
+      navigate('/home');
+    }
+  }, [isSignUpSuccess]);
 
   if (isSignUpError) return <div>Ocorreu um erro ao cadastrar o usuário</div>;
   if (isSignUpLoading) return <div>Criando novo usuário...</div>;
